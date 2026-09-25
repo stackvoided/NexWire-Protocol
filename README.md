@@ -58,21 +58,21 @@
 Clone the repository and compile the optimized binary:
 
 ```bash
-git clone https://github.com/your-username/NexWire.git
-cd NexWire
+git clone https://github.com/stackvoided/NexWire-Protocol
+cd vpn
 
 # Fetch dependencies
 go mod tidy
 
 # Build native Linux binary
-go build -trimpath -ldflags="-s -w" -o nexwire
+go build -trimpath -ldflags="-s -w" -o vpn-core
 ```
 
 To cross-compile for Windows target (`.exe`):
 
 ```bash
 GOOS=windows GOARCH=amd64 CGO_ENABLED=0 \
-go build -trimpath -ldflags="-s -w" -o nexwire.exe
+go build -trimpath -ldflags="-s -w" -o vpn-core.exe
 ```
 
 ## ⚙️ Configuration (`config.json`)
@@ -115,7 +115,7 @@ Create a `config.json` file in the same directory as the binary:
 
 ```bash
 # 1. Launch NexWire in server mode
-sudo ./nexwire -mode=server -config=config.json
+sudo ./vpn-core -mode=server -config=config.json
 
 # 2. Enable IPv4 Forwarding and NAT masquerading
 sudo sysctl -w net.ipv4.ip_forward=1
@@ -127,7 +127,7 @@ sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 Set `"mode": "client"`, specify the server's public IP in `remote_addr`, assign a unique internal IP address (e.g., `10.8.0.2/24`) in `tun_ip`, and run:
 
 ```bash
-sudo ./nexwire -mode=client -config=config.json
+sudo ./vpn-core -mode=client -config=config.json
 ```
 
 ## 🔒 Security Posture
